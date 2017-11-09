@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720101007) do
+ActiveRecord::Schema.define(version: 20171109175701) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "order_items", force: true do |t|
     t.integer  "product_id"
@@ -52,12 +59,31 @@ ActiveRecord::Schema.define(version: 20170720101007) do
   add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
-  create_table "products", force: true do |t|
-    t.string   "name"
-    t.decimal  "price",      precision: 12, scale: 3
-    t.boolean  "active"
+  create_table "product_attribute_values", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "product_attribute_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_attribute_values", ["product_attribute_id"], name: "index_product_attribute_values_on_product_attribute_id", using: :btree
+  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id", using: :btree
+
+  create_table "product_attributes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", force: true do |t|
+    t.string   "name"
+    t.decimal  "price",       precision: 12, scale: 3
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "category_id"
+  end
+
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
 end
