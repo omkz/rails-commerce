@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109182708) do
+ActiveRecord::Schema.define(version: 20171111121203) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20171109182708) do
     t.integer  "product_attribute_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "value"
   end
 
   add_index "product_attribute_values", ["product_attribute_id"], name: "index_product_attribute_values_on_product_attribute_id", using: :btree
